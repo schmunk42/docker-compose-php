@@ -192,6 +192,20 @@ class ComposeManager
     }
 
     /**
+     * Show configuration (yaml)
+     *
+     * @param mixed $composeFiles The compose files names
+     */
+    public function config($composeFiles = array())
+    {
+        return $this->processResult(
+            $this->execute(
+                $this->formatCommand('config', $this->createComposeFileCollection($composeFiles))
+            )
+        );
+    }
+
+    /**
      * List IP containers
      *
      * @param mixed $composeFiles The compose files names
