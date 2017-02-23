@@ -17,6 +17,11 @@ class ComposeManager
 {
 
     /**
+     * @var array environment variables for command
+     */
+    public $env = [];
+
+    /**
      * Start service containers
      *
      * @param mixed $composeFiles The compose files names
@@ -281,6 +286,10 @@ class ComposeManager
     private function formatCommand($subcommand, ComposeFileCollection $composeFiles)
     {
         $command = new Command("docker-compose");
+
+        if (!empty($this->env)) {
+            $command->procEnv = $this->env;
+        }
         $project = '';
 
         # Add files names
