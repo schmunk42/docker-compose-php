@@ -22,6 +22,11 @@ class ComposeManager
     public $env = [];
 
     /**
+     * @var array environment variables for command
+     */
+    public $cwd = null;
+
+    /**
      * Start service containers
      *
      * @param mixed $composeFiles The compose files names
@@ -287,6 +292,12 @@ class ComposeManager
     {
         $command = new Command("docker-compose");
 
+        # Set working directory
+        if (!empty($this->cwd)) {
+            $command->procCwd = $this->cwd;
+        }
+
+        # Set environment variables
         if (!empty($this->env)) {
             $command->procEnv = $this->env;
         }
