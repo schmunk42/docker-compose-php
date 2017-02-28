@@ -301,19 +301,15 @@ class ComposeManager
         if (!empty($this->env)) {
             $command->procEnv = $this->env;
         }
-        $project = '';
 
         # Add files names
-        $preciseFiles = '';
         foreach ($composeFiles->getAll() as $composeFile) {
             $command->addArg('-f', $composeFile->getFileName());
-            #$preciseFiles .= ' -f ' . $composeFile->getFileName();
         }
 
         # Add project name
         if ($composeFiles->getProjectName() != null) {
             $command->addArg('--project-name', $composeFiles->getProjectName());
-            #$project = ' --project-name ' . $composeFiles->getProjectName();
         }
 
         $command->addArg($subcommand);
