@@ -144,6 +144,39 @@ class ComposeManager
         );
     }
 
+    /**
+     * Push service images
+     *
+     * @param mixed   $composeFiles  The compose files names
+     */
+    public function push($composeFiles = array())
+    {
+        $command = 'push';
+
+        return $this->processResult(
+            $this->execute(
+                $this->formatCommand($command, $this->createComposeFileCollection($composeFiles))
+            )
+        );
+    }
+
+
+    /**
+     * Show logs
+     *
+     * @param mixed   $composeFiles  The compose files names
+     */
+    public function logs($composeFiles = array(), $tail = 100)
+    {
+        $command = 'logs --tail '.$tail;
+
+        return $this->processResult(
+            $this->execute(
+                $this->formatCommand($command, $this->createComposeFileCollection($composeFiles))
+            )
+        );
+    }
+
 
     /**
      * Restart running containers
