@@ -98,6 +98,22 @@ class ComposeManager
     }
 
     /**
+     * Down service containers
+     *
+     * @param mixed   $composeFiles  The compose files names
+     */
+    public function down($composeFiles = array())
+    {
+        $command = 'down';
+
+        return $this->processResult(
+            $this->execute(
+                $this->formatCommand($command, $this->createComposeFileCollection($composeFiles))
+            )
+        );
+    }
+
+    /**
      * Build service images
      *
      * @param mixed   $composeFiles  The compose files names
@@ -206,9 +222,10 @@ class ComposeManager
      * @param string $command Command to pass to service
      * @param mixed   $composeFiles  The compose files names
      */
-    public function run($service, $command, $composeFiles = array())
+    public function run($service, $command = null, $composeFiles = array())
     {
-        $command = 'run --rm ' . $service . ' ' . $command;
+        $command = 'run ' . $service . ' ' . $command;
+        #echo $this->formatCommand($command, $this->createComposeFileCollection($composeFiles)); exit;
         $result = $this->execute(
             $this->formatCommand($command, $this->createComposeFileCollection($composeFiles))
         );
